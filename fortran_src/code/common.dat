@@ -1,0 +1,48 @@
+		INTEGER :: IMAX, MMAX
+		LOGICAL :: ISPC
+		PARAMETER (ISPC= .FALSE.)
+		PARAMETER (MMAX=10)
+CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
+
+
+		INTEGER MU_LENGTH_2
+		PARAMETER (MU_LENGTH_2=113)
+		PARAMETER (IMAX=180)
+
+		CHARACTER*64 :: LIST_EPH(MMAX), LIST_EPH_IBC(1)
+		INTEGER, DIMENSION(MMAX,2) :: LIST_I
+
+		INTEGER SYS_TYPE, IPB, ISB, IBC
+
+		COMMON /LIST_ALL/ LIST_I, LIST_EPH, LIST_EPH_IBC
+		COMMON /SYSTEMS/  IPB, ISB , IBC, SYS_TYPE
+
+
+
+CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
+C
+C		IMAX 				Total number of bodies present in the
+C							ephemeris.
+C							(Listed in /eph/list_of_bodies.csv)
+C
+C 		MMAX 				The number of bodies selected in the model.
+C
+C		IBC					The ID of the frame of reference.
+C							Defaults to 0, i.e. Solar system Barycentre
+C
+C		LIST_I				Holds the bodies in the models. The two
+C							columns hold ID and ID of the reference body
+C							in the ephemerides.
+C
+C		LIST_EPH			Hold the file names of ephemerides.
+C							Shares the order to LIST_ID_REF.
+C
+C		SYS_TYPE			INTEGER. Holds the type of system.
+C							Possible values:
+C							0: No defined system. (Default)
+C							2: For a two body system.
+C 						3: For RTBP
+C
+C		IPB					ID of primary body in two body system.
+C
+CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC

@@ -1,0 +1,7 @@
+set term png
+set output 'test.png'
+set style line 1 lt 1 lw 3 pt 3 linecolor rgb "red
+splot "plot.dat",\
+splot "plot_p.dat" ls 1
+set output
+
