@@ -109,9 +109,9 @@ C                    WRITE(*,*) TEMP_2
 
 
 
-         DO I=1,MMAX
-            WRITE(*, *) LIST_I(I,1), LIST_I(I,2), LIST_EPH(I)
-         END DO
+C         DO I=1,MMAX
+C            WRITE(*, *) LIST_I(I,1), LIST_I(I,2), LIST_EPH(I)
+C         END DO
 
 
         CLOSE(FUNIT)
