@@ -2,19 +2,27 @@ package src;
 
 public class Position_Funcs {
 	
-	public static String [] Get_PositionVector_WRT_Observer(String target, String observer, String time)
+	public static String [] Get_PositionVector_WRT_Observer(String target, String observer, String time, String time_format, String [] output_vars)
 	{
 		String [] position=new String[6];
 		
 		position=null;
 		
-		if(target!=null && observer!=null && time!=null)
+		if(target!=null && observer!=null && time!=null && time_format!=null)
 		{
 			String[] file_paths;
 			
 			file_paths=File_Funcs.Generate_TMP_Folder_Return_Path();
-			Setup_Files_PositionVector(file_paths, target, observer, time);
-			System.out.println(Common_Funcs.Program_CompileandRun(file_paths));
+			Setup_Files_PositionVector(file_paths, target, observer, time, time_format);
+			String output_program= Common_Funcs.Program_CompileandRun(file_paths);
+			
+			if(!SPICEReader.Global_Silent)
+			{
+				System.out.println("Output folder: "+file_paths[1]+"/"+file_paths[0]);
+			}
+			
+			Common_Funcs.Output_GenerateCSV(output_program, output_vars[1], file_paths[1], 
+					"Position_Funcs.Get_PositionVector_WRT_Observer");
 			
 		}
 		else
@@ -28,7 +36,7 @@ public class Position_Funcs {
 		
 	}
 	
-	public static boolean Setup_Files_PositionVector(String [] paths, String target, String observer, String time)
+	public static boolean Setup_Files_PositionVector(String [] paths, String target, String observer, String time, String time_format)
 	{
 		boolean status;
 		status=false;
@@ -64,36 +72,49 @@ public class Position_Funcs {
 		f_search[2]="%_TARGET_VALUE%";
 		f_replace[2]=target;
 
-		String time_format;
-		
-		time_format= Toolkit_Funcs.Time_GetFormat(time);
-		
-		f_search[3]="%_TIME_CONVERSION_F%";
 
-		if(time_format=="JULIAN_DATE")
+		f_search[3]="%_TIME_CONVERSION_F%";
+		f_replace[3]="";
+
+		if(time_format.trim().contentEquals("JULIAN"))
 		{
 			f_replace[3]="CALL STR2ET ( '"+time+"', ET)";
 		}
-		else
+		else if(time_format.trim().contentEquals("EPH"))
 		{
 			f_replace[3]="ET ="+time;
 		}
 		
-		File_Funcs.File_ReplacePattern(fortran_path, f_search, fortran_destination, f_replace);
+		String replace_status=null;
+		replace_status= File_Funcs.File_ReplacePattern(fortran_path, f_search, fortran_destination, f_replace);
+		if(replace_status!=null)
+		{
+			Error_Funcs.ThrowError_Fatal("File_Funcs.File_ReplacePattern",replace_status);
+		}
 		
 		String [] f_search2 = new String[1];
 		String [] f_replace2 = new String[1];
 		
 		f_search2[0]="%_TEST_MMAX_VALUE%";
 		f_replace2[0]="2";
+		replace_status=null;
+		replace_status=File_Funcs.File_ReplacePattern(common_dat, f_search2, common_dat_dest, f_replace2);
 		
-		File_Funcs.File_ReplacePattern(common_dat, f_search2, common_dat_dest, f_replace2);
+		if(replace_status!=null)
+		{
+			Error_Funcs.ThrowError_Fatal("File_Funcs.File_ReplacePattern",replace_status);
+		}
 		
 		f_search2[0]="%_TEST_ID_VALUE%";
 		f_replace2[0]=paths[0];
+		replace_status=null;
 		
-		File_Funcs.File_ReplacePattern(make_sh, f_search2, make_sh_dest, f_replace2);
-
+		replace_status= File_Funcs.File_ReplacePattern(make_sh, f_search2, make_sh_dest, f_replace2);
+		if(replace_status!=null)
+		{
+			Error_Funcs.ThrowError_Fatal("File_Funcs.File_ReplacePattern",replace_status);
+		}
+		
 	
 		return status;
 	}

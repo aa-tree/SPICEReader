@@ -2,8 +2,8 @@ SpiceReaderUI v1.0
 
 [Single Body] Usage
 
-				0	   1    2    3 	 4		5	 6		7		8		9
-spicereaderui state -body [id] -obs [id] -time [value] output -file [pathtofile]
+				0	   1    2    3 	 4		5	 6		7		   8/9		9/10 10/11 11/12
+spicereaderui state -body [id] -obs [id] -time --format [format] [value] output -file [pathtofile]
 
 
 

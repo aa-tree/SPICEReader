@@ -16,11 +16,13 @@ public class SPICEReader
 {
 	public static String Global_Java_Path;
 	public static String Global_Fortran_Path;
+	public static boolean Global_Silent;
 
 	
   public static void main (String args[])
   {
 	  Set_Global_Vars();
+	  
 
 	  if(Process_Args.Args_INIT(args))
 	  {

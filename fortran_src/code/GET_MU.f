@@ -59,9 +59,6 @@ C
 
           O_MU=VALUES(1)
 
-          DO I= 1,MMAX
-              READ(FUNIT, *) LIST_I(I,1)
-          END DO
 
         ELSE
 
