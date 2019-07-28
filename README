@@ -1,1 +1,18 @@
-Nothing to see here.
+Introduction
+=========================
+
+This project provides a Java frontend for accessing JPL's SPICE (https://naif.jpl.nasa.gov/naif/). 
+The aim is to have both a command line interface and a graphical interface.
+
+
+Structure
+=========================
+
+
+
+Installation
+=========================
+
+1. Download this repository.
+
+TBD
