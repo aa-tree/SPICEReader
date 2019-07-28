@@ -68,6 +68,8 @@ CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
         real ( kind = 8 ) u1(m)
         real ( kind = 8 ) u2(m)
         real ( kind = 8 ) u3(m)
+
+
 !
 !  Get four sample values of the derivative.
 !

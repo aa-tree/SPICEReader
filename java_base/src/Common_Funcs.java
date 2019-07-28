@@ -246,5 +246,41 @@ public class Common_Funcs {
 		return executionresult;
 	}
 	
-	
+	public static void Output_GenerateCSV(String t_output, String file_name, String path_tofile, String ref_func)
+	{
+		String [] o_toparse = t_output.split(System.getProperty("line.separator"));
+		String ret_output=o_toparse[0].trim();
+		for(int i=1; i<o_toparse.length; i++)
+		{
+			ret_output=ret_output+","+o_toparse[i].trim();
+		}
+		
+		if(file_name.trim().contentEquals("") || path_tofile.trim().contentEquals(""))
+		{
+			
+			System.out.println(ret_output);
+		}
+		
+		if(!file_name.trim().contentEquals("") && !path_tofile.trim().contentEquals(""))
+		{
+			try
+			{
+				
+				File_Funcs.File_WriteStringtoFile(file_name, path_tofile, ret_output);					
+			}
+			catch (Exception e)
+			{
+				Error_Funcs.ThrowError_Warning("Common_Funcs.Output_GenerateCSV", 
+						"Cannnot write to output file. Instead printing output to screen. Referring function: "+
+				ref_func+". Error details: "
+				+e.getMessage());
+			}
+		}
+		
+		
+		
+		
+		
+		
+	}
 }

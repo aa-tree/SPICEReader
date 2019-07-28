@@ -5,7 +5,7 @@ public class Error_Funcs {
 	
 	public static void ThrowError_Input(String Err_Message)
 	{
-		System.out.println("Input Error:"+Err_Message);
+		System.out.println("Input Error: "+Err_Message);
 		System.exit(0);
 	}
 	

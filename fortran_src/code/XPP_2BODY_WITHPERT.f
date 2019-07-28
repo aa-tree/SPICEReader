@@ -32,9 +32,9 @@ C
         OSTATE(1)=VSTATE(4)
         OSTATE(2)=VSTATE(5)
         OSTATE(3)=VSTATE(6)
-        OSTATE(4)=0
-        OSTATE(5)=0
-        OSTATE(6)=0
+        OSTATE(4)=0.0D0
+        OSTATE(5)=0.0D0
+        OSTATE(6)=0.0D0
 
 
 
@@ -62,8 +62,8 @@ C        CALL GET_VEC_MOD(RTEMP, TEMP_MOD)
 
                         IF(TEMP_MOD .NE. 0) THEN
 
-                            RTEMP(I)=(-1*MU_J*RJI(I))
-                            RTEMP(I)=RTEMP(I)/(TEMP_MOD)**3
+                            RTEMP(I)=(-1.0D0*MU_J*RJI(I))
+                            RTEMP(I)=RTEMP(I)/(TEMP_MOD)**3.0D0
                             OSTATE(I+3)=OSTATE(I+3)+RTEMP(I)
 
                         END IF
