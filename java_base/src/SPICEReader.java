@@ -5,7 +5,7 @@ C       Written by: Anshuk Attri
 C
 C       Contact: contact@anshukattri.in
 C       Website: www.anshukattri.in/research
-C       GITHUB: github.com/aa-tree/
+C       GITHUB: github.com/aa-tree/SPICEReader/
 C
 CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
 */
@@ -56,13 +56,13 @@ public class SPICEReader
 		  }
 		  else
 		  {
-			  Error_Funcs.ThrowError_Fatal("SPICEReader.Set_Global_Vars", "Empty default paths.");
+			  Error_Funcs.ThrowError_Fatal("SPICEReader.Set_Global_Vars", "Empty default paths.", null);
 		  }
 	  }
 	  else
 		  
 	  {
-		  Error_Funcs.ThrowError_Fatal("SPICEReader.Set_Global_Vars", "Can't get default paths.");
+		  Error_Funcs.ThrowError_Fatal("SPICEReader.Set_Global_Vars", "Can't get default paths.", null);
 	  }
   }
 

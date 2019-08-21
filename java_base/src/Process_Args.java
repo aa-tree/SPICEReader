@@ -5,7 +5,7 @@ C       Written by: Anshuk Attri
 C
 C       Contact: contact@anshukattri.in
 C       Website: www.anshukattri.in/research
-C       GITHUB: github.com/aa-tree/
+C       GITHUB: github.com/aa-tree/SPICEReader/
 C
 CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
 */
@@ -48,67 +48,54 @@ public class Process_Args
 			{
 				if(args[i].toLowerCase().equals("silent"))
 				{
+					/** Set value of global variable 'Global_Silent'.**/ 
 					SPICEReader.Global_Silent=true;
 				}
 				if (args[i].toLowerCase().equals("state"))
 				{
+					/** Process arguments for getting state vector.**/
 					Process_State_Inputs(i, args);
 				}
 			}
 		}
 	}
 	
-	
-	/**
-	protected static void Get_State(Integer state_pos, String [] args)
-	{
-		boolean valid_input;
 		
-		valid_input=false;
-		
-		if(args[state_pos+1].equals("-body") && args[state_pos+3].equals("-obs") && 
-				args[state_pos+5].equals("-time"))
-		{
-		
-			String body, obs, time;
-			body=args[state_pos+2];
-			obs=args[state_pos+4];
-			time=args[state_pos+6];
-			
-			if(args.length>state_pos+7)
-			{
-				
-			}
-			
-			//if(args.length>state)
-			
-			Position_Funcs.Get_PositionVector_WRT_Observer(body, obs, time);
-		}
-		
-	}
-	
-	
-	*/
-	
 	protected static void Process_State_Inputs(Integer state_pos, String [] args)
 	{
+		/* 'state_pos' is the value of the argument "state" in the array args.*/
 		boolean valid_input;
 		
 		valid_input=false;
+		
 		try
 		{
+			/* Firstly, assume that the input is for getting state vector for a single body. */
+			String [] output_vars = new String [2];
+			output_vars[0]="SCREEN";
+			output_vars[1]="";
+			String body, obs, time, time_format;
+
 			if(args[state_pos+1].toLowerCase().equals("-body") && args[state_pos+3].toLowerCase().equals("-obs") && 
 					args[state_pos+5].toLowerCase().equals("-time") && args[state_pos+6].toLowerCase().equals("--format"))
 			{
 			
-				String body, obs, time, time_format;
-				String [] output_vars = new String [2];
 				
+				/* The variable output_vars holds two values - 
+				 * 1) The target output location [Screen or File] 
+				 * 2) The path to the file if the user wants the output in a file. 
+				 */
+				  
 				output_vars[0]="SCREEN";
 				output_vars[1]="";
 					
 				body=args[state_pos+2];
 				obs=args[state_pos+4];
+				
+				/* Time format could be either Julian date (with an input 'JULIAN') 
+				 * or ephemeris time (with an input 'EPH').
+				 */
+				
 				time_format=args[state_pos+7].toUpperCase();
 				time=args[state_pos+8];
 				if(args.length>state_pos+9)
@@ -158,6 +145,8 @@ public class Process_Args
 				
 				try 
 				{
+					/* Check if the user has give the name of the body or its ID. */
+					
 					body_id=Integer.parseInt(body);
 					body_isint=true;
 				}
@@ -168,6 +157,8 @@ public class Process_Args
 				
 				try 
 				{
+					/* Check if the user has give the name of the body or its ID. */
+					
 					obs_id=Integer.parseInt(obs);
 					obs_isint=true;
 				}
@@ -177,6 +168,7 @@ public class Process_Args
 				}
 				
 				
+				/* Check if the body and the observer are present in the JPL's SPICELIB's ephemeris. */
 				
 				boolean obs_present, body_present;
 				obs_present=false;
@@ -230,6 +222,90 @@ public class Process_Args
 				
 				
 			}
+			/* Check in-case the input arguments are for batch processing of state vectors. */
+			
+			else if (args[state_pos+1].toLowerCase().equals("-input") && args[state_pos+3].toLowerCase().equals("-time")
+					&& args[state_pos+4].toLowerCase().equals("--format"))
+			{
+				valid_input=false;
+				String input_file, output_file;
+				output_file=null;
+				time=null;
+				time_format=args[state_pos+5].toUpperCase();
+				input_file=args[state_pos+2].trim();
+				
+				String [] check_ipfile_exists=File_Funcs.File_ExistsorNot(input_file);
+				if(check_ipfile_exists[0].contentEquals("FALSE"))
+				{
+					Error_Funcs.ThrowError_Input("Input file does not exist.");
+				}
+				
+				if (check_ipfile_exists[1].contentEquals("TRUE")) 
+				{
+					Error_Funcs.ThrowError_Input("Input file is a directory.");
+				}
+
+				if(args[state_pos+5].toUpperCase().equals("JULIAN"))
+				{
+					time=args[state_pos+6].trim();
+					time_format="JULIAN";
+					
+					if(!args[state_pos+7].toLowerCase().equals("output"))
+					{
+						time=time+" "+args[state_pos+7].trim();
+					}
+					else
+					{
+						Error_Funcs.ThrowError_Input("Wrong Julian date/time format. The format is supposed to be YYYY-MM-DD HH:MM:SS.");
+
+					}
+					
+				}
+				else if(args[state_pos+5].toUpperCase().equals("EPH"))
+				{
+					time=args[state_pos+6].trim();
+					time_format="EPH";
+
+				}
+				else
+				{
+					Error_Funcs.ThrowError_Input("Can't understand input.");
+
+				}
+
+				if (args[state_pos+7].toLowerCase().equals("output") && args[state_pos+8].toLowerCase().equals("-file"))
+				{
+									
+					output_file=args[state_pos+9].trim();
+					valid_input=true;
+				}
+				else if(args[state_pos+8].toLowerCase().equals("output") && args[state_pos+9].toLowerCase().equals("-file"))
+				{
+					output_file=args[state_pos+10].trim();
+					valid_input=true;
+
+				}
+				else
+				{
+					Error_Funcs.ThrowError_Input("Output file not specified.");
+
+				}
+				
+				if(valid_input)
+				{
+					String [] [] out_bodyobs;
+					out_bodyobs=Position_Funcs.Process_Input_BatchFile(input_file, time, output_file);
+					output_vars[0]="FILE";
+					output_vars[1]=output_file;
+					
+					Position_Funcs.Get_PositionVector_WRT_ObserverBatch(out_bodyobs, time, time_format, output_vars);
+				}
+				else
+				{
+					Error_Funcs.ThrowError_Input("Invalid Input.");
+				}
+				
+			}
 			else
 			{
 				Error_Funcs.ThrowError_Input("Can't understand input.");
@@ -238,13 +314,13 @@ public class Process_Args
 		
 		catch (Exception e)
 		{
-			
+			Error_Funcs.ThrowError_Input("Can't understand input.");
+
 		}
 	
 		
 	}
 	
-	//protected void Read_Rest_Args
 
 
 }

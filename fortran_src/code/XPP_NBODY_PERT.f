@@ -21,8 +21,8 @@ CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
 
         INTEGER I,J
         REAL*8 MU_J
-        REAL*8, DIMENSION(6) :: RJI, RJ, RJ0
-        REAL*8, DIMENSION(3) :: RTEMP
+        REAL*8 RJI(VDIM), RJ(VDIM), RJ0(VDIM)
+        REAL*8 RTEMP(3)
         REAL*8 T_OSTATE, LTIME, TEMP_MOD
 
 
@@ -31,13 +31,14 @@ CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
 C
 C       X' is V, which is taken from the input state vector
 C
-        OSTATE(1)=VSTATE(4)
-        OSTATE(2)=VSTATE(5)
-        OSTATE(3)=VSTATE(6)
-        OSTATE(4)=0.D0
-        OSTATE(5)=0.D0
-        OSTATE(6)=0.D0
 
+        DO I=1,3
+            OSTATE(I)=VSTATE(I+3)
+        END DO
+
+        DO I=1,3
+            OSTATE(I+3)=0.0D0
+        END DO
 
 
 
@@ -79,8 +80,8 @@ C
         IF(TEMP_MOD .NE. 0 ) THEN
             DO I=1,3
 
-                T_OSTATE=(-1.D0*MU_J)*RJI(I)
-                OSTATE(I+3)=T_OSTATE/(TEMP_MOD)**3
+                T_OSTATE=(-1.0D0*MU_J)*RJI(I)
+                OSTATE(I+3)=T_OSTATE/(TEMP_MOD)**3.0D0
 
             END DO
         END IF
@@ -95,8 +96,6 @@ C
 
         IF(LIST_I(J,1) .NE. IPB) THEN
 
-!            CALL SPKEZ(LIST_I(J,1), VTIME, 'J2000', 'NONE', 0,
-!     &RJ, LTIME)
 
             CALL GET_POS_WRT_IBC(VTIME, LIST_I(J,1), RJ)
 
@@ -113,8 +112,10 @@ C
 
                 DO I=1,3
 
-                    T_OSTATE=(-1.D0*MU_J)*RJI(I)
-                    T_OSTATE=T_OSTATE/(TEMP_MOD**3)
+                    T_OSTATE=(-1.0D0*MU_J)*RJI(I)
+                    T_OSTATE=T_OSTATE/(TEMP_MOD**3.0D0)
+
+
                     OSTATE(I+3)=OSTATE(I+3)+T_OSTATE
 
 

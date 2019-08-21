@@ -199,7 +199,7 @@ public class Common_Funcs {
 		}
 		catch (Exception e)
 		{
-			Error_Funcs.ThrowError_Fatal("Common_Funcs.Program_CompileandRun", e.getMessage());
+			Error_Funcs.ThrowError_Fatal("Common_Funcs.Program_CompileandRun", e.getMessage(), e.getStackTrace());
 		}
 		
 		if(compiled)
@@ -235,7 +235,7 @@ public class Common_Funcs {
 			}
 			catch (Exception e)
 			{
-				Error_Funcs.ThrowError_Fatal("Common_Funcs.Program_CompileandRun", e.getMessage());
+				Error_Funcs.ThrowError_Fatal("Common_Funcs.Program_CompileandRun", e.getMessage(), e.getStackTrace());
 
 			}
 			
@@ -246,14 +246,65 @@ public class Common_Funcs {
 		return executionresult;
 	}
 	
-	public static void Output_GenerateCSV(String t_output, String file_name, String path_tofile, String ref_func)
+	public static void Output_GenerateCSV(String out_category, String t_output, String file_name, String path_tofile, String ref_func)
 	{
-		String [] o_toparse = t_output.split(System.getProperty("line.separator"));
-		String ret_output=o_toparse[0].trim();
-		for(int i=1; i<o_toparse.length; i++)
+//		String [] o_toparse = t_output.split(" ");
+		
+		Integer j;
+		String [] o_toparse;
+		
+		String ret_output="";
+		
+		if(out_category.contentEquals("POSITION_BATCH"))
 		{
-			ret_output=ret_output+","+o_toparse[i].trim();
+			o_toparse=t_output.split(System.getProperty("line.separator"));
+			for(int i=0; i<o_toparse.length; i++)
+			{
+				
+				if(i%7==0&&i!=0)
+				{
+					ret_output+=System.getProperty("line.separator")+o_toparse[i].trim();
+				}
+				else if(i%7!=0 &&i!=0)
+				{
+					ret_output=ret_output+","+o_toparse[i].trim();
+
+				}
+				else if(i==0)
+				{
+					ret_output=ret_output+o_toparse[i].trim();
+				}
+				
+			}
+			
 		}
+		else if(out_category.contentEquals("POSITION_SOLO"))
+		{
+			o_toparse=t_output.split(System.getProperty("line.separator"));
+				
+			for(int i=0; i<o_toparse.length; i++)
+			{
+				
+				if(i!=5)
+				{
+					ret_output+=o_toparse[i].trim()+",";
+				}
+				else if(i==5)
+				{
+					ret_output+=o_toparse[i].trim();
+
+				}
+				
+				
+			}
+			
+		}
+		
+		
+		
+		
+		
+		/** Printout the output to either file or screen. **/
 		
 		if(file_name.trim().contentEquals("") || path_tofile.trim().contentEquals(""))
 		{
@@ -282,5 +333,24 @@ public class Common_Funcs {
 		
 		
 		
+	}
+	
+	public static String Is_Input_IDorName(String body)
+	{
+		String input_type=null;
+		Integer body_id;
+		try 
+		{
+			/* Check if the user has give the name of the body or its ID. */
+			
+			body_id=Integer.parseInt(body);
+			input_type="INT";
+		}
+		catch (NumberFormatException e)
+		{
+			input_type="STRING";
+		}
+		
+		return input_type;
 	}
 }
