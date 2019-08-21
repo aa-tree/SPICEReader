@@ -3,7 +3,12 @@ SpiceReaderUI v1.0
 [Single Body] Usage
 
 				0	   1    2    3 	 4		5	 6		7		   8/9		9/10 10/11 11/12
-spicereaderui state -body [id] -obs [id] -time --format [format] [value] output -file [pathtofile]
+spicereader state -body [id] -obs [id] -time --format [format] [value] output -file [pathtofile]
 
+
+[Batch - Multiple Bodies] Usage
+
+				0		1		2		3		4		5		6/6-7	7/8	   8/9		9/10
+spicereader state -input [filepath] -time --format [format] [value] output -file [pathfile]
 
 

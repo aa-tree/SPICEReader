@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.util.Random;
 
 public class File_Funcs {
 
@@ -12,36 +13,50 @@ public class File_Funcs {
 	{
 	
 		String [] out_id_andpath = new String[2];
-/*		
-		String [] paths;
-		paths=File_ReturnPaths();
-*/		
-		String random_name = Long.toHexString(Double.doubleToLongBits(Math.random()));
+		String random_name;
+		//random_name = Long.toHexString(Double.doubleToLongBits(Math.random()));
+		 Random random = new Random();
+		random_name="TEST_"+Integer.toString(random.nextInt());
 		
-	    File dir_path = new File(SPICEReader.Global_Fortran_Path+"tmp/"+random_name);
-	    while (dir_path.exists() || dir_path.isDirectory()) {
-			random_name = Long.toHexString(Double.doubleToLongBits(Math.random()));
-			dir_path = new File(SPICEReader.Global_Fortran_Path+"tmp/"+random_name);
-	    	}
-	    
-	    out_id_andpath[0]=random_name;
-	    out_id_andpath[1]=dir_path.getAbsolutePath();
-	    
-	    boolean dir_creation= dir_path.mkdir();
-	    
-	    if(dir_creation)
-	    {
-	    	return out_id_andpath;
-	    }
-	    else
-	    	
-	    {
-			Error_Funcs.ThrowError_Fatal("Generate_TMP_Folder_Return_Path", "Can't create directory in /fortran_src/tmp folder.");
+		try 
+		{
+			Integer counter_tries=0;
 
-	    }
-		
-	    
-	    return null;
+			 File dir_path = new File(SPICEReader.Global_Fortran_Path+"tmp/"+random_name);
+			    
+			    while (dir_path.exists() || dir_path.isDirectory()&&counter_tries<30) {
+			    	counter_tries++;
+			    	random_name="TEST_"+Double.toString(Math.random());
+					dir_path = new File(SPICEReader.Global_Fortran_Path+"tmp/"+random_name);
+					
+			    	}
+			    
+			    out_id_andpath[0]=random_name;
+			    out_id_andpath[1]=dir_path.getAbsolutePath();
+			    
+			    boolean dir_creation= dir_path.mkdir();
+			    
+			    if(dir_creation)
+			    {
+			    	return out_id_andpath;
+			    }
+			    else
+			    	
+			    {
+					Error_Funcs.ThrowError_Fatal("Generate_TMP_Folder_Return_Path", "Can't create directory in /fortran_src/tmp folder.", null);
+				    return null;
+
+			    }
+				
+			    
+		}
+		catch (Exception e)
+		{
+			Error_Funcs.ThrowError_Fatal("File_Funcs.Generate_TMP_Folder_Return_Path", e.getMessage(), null);
+		    return null;
+
+		}
+	   
 		
 		
 		
@@ -84,7 +99,7 @@ public class File_Funcs {
 		}
 		catch (Exception e)
 		{
-			Error_Funcs.ThrowError_Fatal("File_ReturnPaths", e.getMessage());
+			Error_Funcs.ThrowError_Fatal("File_ReturnPaths", e.getMessage(), e.getStackTrace());
 		}
 
 		return paths;
@@ -168,4 +183,32 @@ public class File_Funcs {
 		
 		return status;
 	}
+
+	public static String[] File_ExistsorNot(String path)
+	{
+		String[] out_ret= {"FALSE","FALSE"};
+		File tempFile = new File(path);
+		try
+		{
+			if(tempFile.exists())
+			{
+				out_ret[0]="TRUE";
+				if(tempFile.isDirectory())
+				{
+					out_ret[1]="TRUE";
+					
+				}
+			}
+			
+	
+		}
+		catch (Exception e)
+		{
+			Error_Funcs.ThrowError_Warning("File_Funcs.File_ExistsorNot", e.getMessage());
+		}
+		
+		return out_ret;
+		
+	}
+	
 }

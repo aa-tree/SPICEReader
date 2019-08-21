@@ -11,7 +11,7 @@ public class Error_Funcs {
 	
 
 	
-	public static void ThrowError_Fatal(String FunctionName, String Err_Message)
+	public static void ThrowError_Fatal(String FunctionName, String Err_Message, StackTraceElement[] stack)
 	{
 		System.out.println("Error in "+FunctionName);
 		System.out.println("Message"+Err_Message);
