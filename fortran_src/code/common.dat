@@ -1,7 +1,7 @@
 		INTEGER :: IMAX, MMAX
 		LOGICAL :: ISPC
 		PARAMETER (ISPC= .FALSE.)
-		PARAMETER (MMAX=2)
+		PARAMETER (MMAX=10)
 CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
 
 
@@ -13,19 +13,25 @@ CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
 		INTEGER, DIMENSION(MMAX,2) :: LIST_I
 
 		INTEGER SYS_TYPE, IPB, ISB, IBC
+		
+		LOGICAL PERTURBATION
+		REAL*8 PERT_ARRAY(6)
+		
+		
 
+	
 		COMMON /LIST_ALL/ LIST_I, LIST_EPH, LIST_EPH_IBC
 		COMMON /SYSTEMS/  IPB, ISB , IBC, SYS_TYPE
-
-
+		COMMON /PERT/ PERTURBATION
 
 CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
 C
-C		IMAX 				Total number of bodies present in the
-C							ephemeris.
-C							(Listed in /eph/list_of_bodies.csv)
+C		IMAX				INT		Total number of bodies present 
+C									in the ephemeris.
+C									(Listed in /eph/list_of_bodies.csv)
 C
-C 		MMAX 				The number of bodies selected in the model.
+C 		MMAX				INT		The number of bodies selected in 
+c									the model.
 C
 C		IBC					The ID of the frame of reference.
 C							Defaults to 0, i.e. Solar system Barycentre
@@ -44,5 +50,10 @@ C							2: For a two body system.
 C 						3: For RTBP
 C
 C		IPB					ID of primary body in two body system.
+C
+C		PERTURBATION		LOGICAL 	Specifies whether perturbation
+C										output is required or not. 
+C
+C		PERT_ARRAY(6)		REAL*8		Hold the sum of perturbations.
 C
 CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC

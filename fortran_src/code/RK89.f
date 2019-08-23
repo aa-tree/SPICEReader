@@ -34,7 +34,7 @@ C       Define coefficients.
 C
 
         DELTAH=VDT !Will be read from a config file later.
-        ERR_TOL=1.0D-01
+        ERR_TOL=1.0D-07
 C
 C       Alpha_K. The vector has a bias of 1.
 C
@@ -368,9 +368,9 @@ C
 
         CALL CONVERGENCE_TEST_VECTOR(TEMP_X, TEMP_XBAR, ERR_X)
 
-        IF(ERR_X(2) .GT. ERR_TOL/10.0D-06) THEN
+        IF(ERR_X(2) .GT. ERR_TOL*10.0D-06) THEN
             DELTAH=DELTAH/10.0D0
-            PAUSE
+
             GOTO 20
         END IF
 

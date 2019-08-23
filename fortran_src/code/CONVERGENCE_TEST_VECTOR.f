@@ -14,8 +14,29 @@ CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
         REAL*8 V_APPROX(6), V_EXACT(6)
         REAL*8 O_RESULT(2)
 
+!       SUMMARY:
+!
+!       This routine computes the convergence of two vectors. It
+!       accepts two inputs, the vector for which you want the result,
+!       and the vector you want to compare it to. The result
+!       contains the absolute and relative errors between the two vectos.
+!
+!       VARIABLES:
+!
+!       NAME             TYPE            DESCRIPTION
+!
+!       V_APPROX(6)      Input(REAL*8)   The vector for which you want
+!                                        to calculate the error values.
+!
+!       V_EXACT(6)       Input(REAL*8)   The vector which that target
+!                                        vector is supposed to be
+!                                        compared to.
+!
+!       O_RESULT(2)      Output(REAL*8)  The output containing error
+!                                        values. O_RESULT(1) holds the
+!                                        Absolute Error, and O_RESULT(2)
+!                                        hold the Relative Error.
 
-C
 CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
 
         INTEGER I
