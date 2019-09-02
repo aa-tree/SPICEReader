@@ -1,23 +1,40 @@
-<h1>Introduction</h1>
-
-<p>This project provides a Java frontend for accessing JPL's SPICE (https://naif.jpl.nasa.gov/naif/). 
-The aim is to have both a command line interface and a graphical interface.</p>
-
-
-<h1>Structure</h1>
-
-<h1>Installation</h1>
-
-
-1. Download this repository. Let's say you store it in <i>/path-to-repo/SPICEReader</i>
-
-2. Download JPL's SPICELIB (FORTRAN) from here:
-http://naif.jpl.nasa.gov/pub/naif/toolkit//FORTRAN/PC_Linux_gfortran_64bit/packages/toolkit.tar.Z
-
-  a. Unzip the downloaded file. Let's say you get a folder like <i>/path-to-SPICE-ZIP/toolkit</i>. Run '<i>makeall.csh<i>' in the folder '<i>toolkit</i>'. 
-  b. Copy the file '/lib/spicelib.a' to '/path-to-repo/SPICEReader/fortran_src/toolkit/lib/'
-
-3. 
-
-
-TBD
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0//EN" "http://www.w3.org/Math/DTD/mathml2/xhtml-math11-f.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><!--This file was converted to xhtml by LibreOffice - see http://cgit.freedesktop.org/libreoffice/core/tree/filter/source/xslt for the code.--><head profile="http://dublincore.org/documents/dcmi-terms/"><meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8"/><title xml:lang="en-US">- no title specified</title><meta name="DCTERMS.title" content="" xml:lang="en-US"/><meta name="DCTERMS.language" content="en-US" scheme="DCTERMS.RFC4646"/><meta name="DCTERMS.source" content="http://xml.openoffice.org/odf2xhtml"/><meta name="DCTERMS.issued" content="2019-09-02T16:03:35.511277039" scheme="DCTERMS.W3CDTF"/><meta name="DCTERMS.modified" content="2019-09-02T16:26:13.998056131" scheme="DCTERMS.W3CDTF"/><meta name="DCTERMS.provenance" content="" xml:lang="en-US"/><meta name="DCTERMS.subject" content="," xml:lang="en-US"/><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/" hreflang="en"/><link rel="schema.DCTERMS" href="http://purl.org/dc/terms/" hreflang="en"/><link rel="schema.DCTYPE" href="http://purl.org/dc/dcmitype/" hreflang="en"/><link rel="schema.DCAM" href="http://purl.org/dc/dcam/" hreflang="en"/><style type="text/css">
+	@page {  }
+	table { border-collapse:collapse; border-spacing:0; empty-cells:show }
+	td, th { vertical-align:top; font-size:12pt;}
+	h1, h2, h3, h4, h5, h6 { clear:both }
+	ol, ul { margin:0; padding:0;}
+	li { list-style: none; margin:0; padding:0;}
+	<!-- "li span.odfLiEnd" - IE 7 issue-->
+	li span. { clear: both; line-height:0; width:0; height:0; margin:0; padding:0; }
+	span.footnodeNumber { padding-right:1em; }
+	span.annotation_style_by_filter { font-size:95%; font-family:Arial; background-color:#fff000;  margin:0; border:0; padding:0;  }
+	* { margin:0;}
+	.Heading_20_1 { font-size:24pt; margin-bottom:0.212cm; margin-top:0.423cm; font-family:Liberation Serif; writing-mode:page; font-weight:bold; }
+	.P1 { font-size:12pt; font-family:Liberation Serif; writing-mode:page; }
+	.P10 { font-size:12pt; font-family:Liberation Serif; writing-mode:page; }
+	.P11 { font-size:12pt; font-family:Liberation Serif; writing-mode:page; font-style:normal; }
+	.P12 { font-size:12pt; line-height:120%; margin-bottom:0.247cm; margin-top:0cm; font-family:Liberation Serif; writing-mode:page; }
+	.P13 { font-size:12pt; line-height:120%; margin-bottom:0.247cm; margin-top:0cm; font-family:Liberation Serif; writing-mode:page; }
+	.P14 { font-size:12pt; line-height:120%; margin-bottom:0.247cm; margin-top:0cm; font-family:Liberation Serif; writing-mode:page; }
+	.P15 { font-size:12pt; line-height:120%; margin-bottom:0.247cm; margin-top:0cm; font-family:Liberation Serif; writing-mode:page; font-style:italic; }
+	.P2 { font-size:12pt; font-family:Liberation Serif; writing-mode:page; }
+	.P3 { font-size:12pt; font-family:Liberation Serif; writing-mode:page; }
+	.P4 { font-size:12pt; line-height:120%; margin-bottom:0.247cm; margin-top:0cm; font-family:Liberation Serif; writing-mode:page; }
+	.P5 { font-size:12pt; font-family:Liberation Serif; writing-mode:page; }
+	.P6 { font-size:12pt; font-family:Liberation Serif; writing-mode:page; }
+	.P7 { font-size:12pt; font-family:Liberation Serif; writing-mode:page; font-style:italic; }
+	.P8 { font-size:12pt; font-family:Liberation Serif; writing-mode:page; font-style:italic; }
+	.P9 { font-size:12pt; font-family:Liberation Serif; writing-mode:page; font-style:italic; }
+	.Text_20_body { font-size:12pt; font-family:Liberation Serif; writing-mode:page; margin-top:0cm; margin-bottom:0.247cm; line-height:120%; }
+	.Internet_20_link { color:#000080; text-decoration:underline; }
+	.T1 { font-style:italic; }
+	.T2 { font-style:italic; }
+	.T3 { font-style:italic; }
+	.T4 { font-style:italic; }
+	.T5 { font-style:italic; }
+	.T8 { font-style:normal; }
+	<!-- ODF styles with no properties representable as CSS -->
+	.Numbering_20_Symbols .T6 .T7 .T9  { }
+	</style></head><body dir="ltr" style="max-width:21.001cm;margin-top:2cm; margin-bottom:2cm; margin-left:2cm; margin-right:2cm; "><h1 class="Heading_20_1"><a id="a__Introduction"><span/></a><a id="user-content-introduction"/>Introduction</h1><p class="Text_20_body">This project provides a Java frontend for accessing JPL's SPICE (<a href="https://naif.jpl.nasa.gov/naif/" class="Internet_20_link">https://naif.jpl.nasa.gov/naif/</a>). The aim is to have both a command line interface and a graphical interface.</p><p class="P4"> </p><h1 class="Heading_20_1"><a id="a__Structure"><span/></a><a id="user-content-structure"/>Structure</h1><h1 class="Heading_20_1"><a id="a__Installation"><span/></a><a id="user-content-installation"/>Installation</h1><ol><li><p class="P12" style="margin-left:0.748cm;"><span class="Numbering_20_Symbols" style="display:block;float:left;min-width:0.499cm;">1.</span>Download this repository. Let's say you store it in <span class="T1">/path-to-repo/SPICEReader</span><span class="odfLiEnd"/> </p></li><li><p class="P13" style="margin-left:0.748cm;"><span class="Numbering_20_Symbols" style="display:block;float:left;min-width:0.499cm;">2.</span><span class="T6"> </span>Download JPL's SPICELIB (FORTRAN) from here: <a href="http://naif.jpl.nasa.gov/pub/naif/toolkit//FORTRAN/PC_Linux_gfortran_64bit/packages/toolkit.tar.Z" class="Internet_20_link">http://naif.jpl.nasa.gov/pub/naif/toolkit//FORTRAN/PC_Linux_gfortran_64bit/packages/toolkit.tar.Z</a><span class="odfLiEnd"/> </p><ol><li><p class="P14" style="margin-left:2cm;"><span style="display:block;float:left;min-width:0.499cm;">a)</span>Unzip the downloaded file. Let's say you get a folder like <span class="T1">/path-to-SPICE-ZIP/toolkit</span><span class="odfLiEnd"/> </p></li><li><p class="P14" style="margin-left:2cm;"><span style="display:block;float:left;min-width:0.499cm;">b)</span>Run '<span class="T1">makeall.csh'. </span><span class="odfLiEnd"/> </p></li><li><p class="P15" style="margin-left:2cm;"><span style="display:block;float:left;min-width:0.499cm;">c)</span>Copy the file /path-to-SPICE-ZIP/toolkit/lib/spicelib.a to /path-to-repo/SPICEReader/fortran_src/toolkit/lib/<span class="odfLiEnd"/> </p></li></ol></li></ol><p class="P1">[You can skip this step, because the SPICE Toolkit is freely available so it will be available in the repository. If perhaps the license doesn’t allow free distribution, this file might be removed from the repository.]</p><p class="P1"> </p><ol><li><p class="P5" style="margin-left:0.748cm;"><span class="Numbering_20_Symbols" style="display:block;float:left;min-width:0.499cm;">3.</span>Download the following Binary kernels from JPL’s website. These are data files that store the ephemerides. <span class="T7">Use FTP, to make this process simple.</span><span class="odfLiEnd"/> </p><ol><li><p class="P6" style="margin-left:2cm;"><span style="display:block;float:left;min-width:0.499cm;">a)</span><a href="https://naif.jpl.nasa.gov/pub/naif/generic_kernels/spk/planets/de435.bsp" class="Internet_20_link">https://naif.jpl.nasa.gov/pub/naif/generic_kernels/spk/planets/de435.bsp</a><span class="odfLiEnd"/> </p></li><li><p class="P6" style="margin-left:2cm;"><span style="display:block;float:left;min-width:0.499cm;">b)</span>All files in the folder <a href="https://naif.jpl.nasa.gov/pub/naif/generic_kernels/spk/satellites/" class="Internet_20_link">https://naif.jpl.nasa.gov/pub/naif/generic_kernels/spk/satellites/</a><br/><span style="margin-left:0.499cm"/><br/><span style="margin-left:0.499cm"/>Skip the folder <span class="T2">a_old_version</span><span class="T8">.</span><span class="odfLiEnd"/> </p></li></ol></li></ol><p class="P2"> </p><p class="P3"><span> </span><span> <span class="T9">Move all these downloaded files to  </span><span class="T4">/path-to-repo/SPICEReader</span><span class="T3">/fortran_src/eph/</span></span></p><p class="P7"> </p><ol><li><p class="P10" style="margin-left:0.748cm;"><span class="Numbering_20_Symbols" style="display:block;float:left;min-width:0.499cm;">4.</span><span class="T8">Download all the files in this folder from here:<br/></span><a href="https://naif.jpl.nasa.gov/pub/naif/generic_kernels/lsk/" class="Internet_20_link"><span class="T3">https://naif.jpl.nasa.gov/pub/naif/generic_kernels/lsk/</span></a><span class="T3"><br/><br/></span><span class="T8">Move these to /</span><span class="T5">path-to-repo/SPICEReader</span><span class="T3">/fortran_src/</span><span class="T2">gkernels</span><span class="odfLiEnd"/> </p><p class="P9" style="margin-left:0.748cm;"><span class="Numbering_20_Symbols" style="display:block;float:left;min-width:0.499cm"><!-- --></span><span class="odfLiEnd"/> </p></li><li><p class="P11" style="margin-left:0.748cm;"><span class="Numbering_20_Symbols" style="display:block;float:left;min-width:0.499cm;">5.</span>Run the script /<span class="T4">path-to-repo/SPICEReader</span><span class="T3">/</span><span class="T2">install.sh</span><span class="odfLiEnd"/> </p><p class="P8" style="margin-left:0.748cm;"><span class="Numbering_20_Symbols" style="display:block;float:left;min-width:0.499cm"><!-- --></span><span class="odfLiEnd"/> </p></li></ol><p class="P1"> </p><p class="P1"> </p></body></html>
