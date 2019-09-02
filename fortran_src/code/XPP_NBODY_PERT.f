@@ -27,7 +27,6 @@ CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
 
 
 
-
 C
 C       X' is V, which is taken from the input state vector
 C
@@ -40,7 +39,15 @@ C
             OSTATE(I+3)=0.0D0
         END DO
 
+        IF(PERTURBATION) THEN
+            DO I=1,6
+                PERT_ARRAY(I)=0.0D0
+            END DO
 
+            DO I=1,3
+                PERT_ARRAY(I)=OSTATE(I)
+            END DO
+        END IF
 
         IF(SYS_TYPE .EQ. 0) THEN
             WRITE(*,*) 'Error in XPP_NBODY_PERT.'
@@ -86,6 +93,10 @@ C
             END DO
         END IF
 
+
+
+
+
 C
 C       For all bodies in the system.
 C
@@ -115,6 +126,9 @@ C
                     T_OSTATE=(-1.0D0*MU_J)*RJI(I)
                     T_OSTATE=T_OSTATE/(TEMP_MOD**3.0D0)
 
+                    IF(PERTURBATION) THEN
+                        PERT_ARRAY(I+3)=PERT_ARRAY(I+3)+T_OSTATE
+                    END IF
 
                     OSTATE(I+3)=OSTATE(I+3)+T_OSTATE
 
@@ -127,7 +141,13 @@ C
         END IF
         END DO
 
-
+        IF(PERTURBATION) THEN
+            DO I=1,3
+                PERT_ARRAY(I+3)=OSTATE(I+3)-PERT_ARRAY(I+3)
+               ! WRITE(*,*) PERT_ARRAY(I+3)
+            END DO
+           ! PAUSE
+        END IF
 
 
         RETURN

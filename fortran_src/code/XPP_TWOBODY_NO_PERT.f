@@ -67,7 +67,7 @@ C     &RJ, LTIME)
                 DO I=1,3
 
                     T_OSTATE=(-1*MU_J)*RJI(I)
-                    OSTATE(I+3)=T_OSTATE/(TEMP_MOD)**3
+                    OSTATE(I+3)=T_OSTATE/(TEMP_MOD)**3.0D0
 
                 END DO
             END IF

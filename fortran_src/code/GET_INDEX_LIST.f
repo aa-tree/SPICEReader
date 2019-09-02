@@ -17,13 +17,17 @@ CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
 
         INTEGER ID, R_INDEX, I
 
-
-C
-C       V_ID        INPUT [INTEGER]      ID of the body to search.
-C
-C       R_INDEX     OUTPUT [INTEGER]     The index of the requested body in 
-C                                        the common variable LIST_I.
-C
+!       SUMMARY:
+!
+!       VARIABLES:
+!       NAME            TYPE              DESCRIPTION
+!
+!       V_ID           INPUT(INTEGER)     ID of the body to search.
+!
+!       R_INDEX        OUTPUT(INTEGER)    The index of the requested
+!                                         body in the common variable
+!                                         LIST_I.
+!
 CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
 
 

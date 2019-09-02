@@ -52,7 +52,7 @@ C
         IBC=V_IBC
 
         SYS_TYPE=0
-
+        PERTURBATION=.FALSE.
 C
 C       Read the model IDs into the memory from 'model.dat'.
 C       Get ephemerides file location, Reference Frame from

@@ -10,12 +10,20 @@ CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
 
         SUBROUTINE GET_MU(V_ID, O_MU)
 
+!       SUMMARY:
+!
+!       This routine gets the value of Mu (Gravitational Parameter (G*M)
+!       for a body from the ephemeris.
+!
+!       VARIABLES:
+!
+!       NAME            TYPE              DESCRIPTION
 C
 C
-C       V_ID        INPUT [INTEGER]       ID of the body to search.
+C       V_ID        INPUT [INTEGER]      ID of the body to search.
 C
-C       O_MU        OUTPUT [REAL*8]      The value of mu (GM) for the requested
-C                                        body.
+C       O_MU        OUTPUT [REAL*8]      The value of mu (GM) for the
+C                                        requested body.
 C
 CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
         IMPLICIT NONE
