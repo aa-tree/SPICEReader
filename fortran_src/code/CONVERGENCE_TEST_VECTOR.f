@@ -62,12 +62,12 @@ C
 C
 C       Calc absolute error.
 C
-        O_RESULT(1)= MOD_DIFF
+        O_RESULT(1)= ABS(MOD_DIFF)
 
 C
 C       Calc relative error.
 C
-        O_RESULT(2)= MOD_DIFF/MOD_EXACT
+        O_RESULT(2)= ABS(MOD_DIFF/MOD_EXACT)
 
 
         RETURN

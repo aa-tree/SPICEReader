@@ -22,6 +22,7 @@ C
 CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
 
         INTEGER I,J,K,L
+        INTEGER COUNTER_MAX, COUNTER
 
         REAL*8 ALPHAK(12), GAMMA_KLAM(12, 11), C_K(12), CP_K(11)
         REAL*8 F_K(12,3), T_K(12)
@@ -31,12 +32,22 @@ CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
         REAL*8 TEX_VAL(3), ERR_X(2)
 
         REAL*8 DELTAH, ERR_TOL
+        REAL*8 ERR_X_TOL, TEMP_MOD_XO, ERR_PARAM, TEX_MOD
+
 C
 C       Define coefficients.
 C
 
         DELTAH=VDT !Will be read from a config file later.
-        ERR_TOL=1.0D-01
+
+        CALL GET_VEC_MOD(VSTATE, TEMP_MOD_XO)
+
+        ERR_X_TOL=1.0D-16*TEMP_MOD_XO
+        ERR_TOL=(0.50D0)**9.0D0
+
+        COUNTER_MAX=20
+
+        VDIM=6 !Override VDIM.
 C
 C       Alpha_K. The vector has a bias of 1.
 C
@@ -243,7 +254,11 @@ C
 C
 C       Calc f0 and save it in the vector F_K.
 C
-10      DO I=1,12
+        COUNTER=0
+
+10      COUNTER=COUNTER+1
+
+        DO I=1,12
             DO J=1,3
                 F_K(I,J)=0.0D0
             END DO
@@ -306,37 +321,64 @@ C
 !        END DO
 
 
+C
+C       Move on if max no. iterations reached.
+C
+        IF(COUNTER .GT. COUNTER_MAX) THEN
+            WRITE(*,*) 'MAX ITERATIONS REACHED. f_x. ET=', V_T
+            !PAUSE
+            GOTO 30
+        END IF
+
+C
+C       Calculate the truncation error T_Ex
+C
+
         DO J=1,3
             TEX_VAL(J)=(F_K(11,J)-F_K(12,J))*(DELTAH**7.0D0)/550.0D0
-
-            IF(TEX_VAL(J) .GT. ERR_TOL) THEN
-                DELTAH=DELTAH*0.5D0
-                !write(*,*) TEX_VAL(J)
-                GOTO 10
-            END IF
         END DO
+
+        TEX_MOD=0.0D0
+        CALL GET_VEC_MOD(TEX_VAL, TEX_MOD)
+        ERR_PARAM=ABS(TEX_MOD/ERR_X_TOL)
+
+        IF( ERR_PARAM .LT. ERR_TOL) THEN
+            DELTAH=DELTAH*2.0D0
+            !write(*,*) TEX_VAL(J)
+            GOTO 10
+        END IF
+
+        IF( ERR_PARAM .GT. 1.0D0) THEN
+            DELTAH=DELTAH*0.50D0
+            GOTO 10
+        END IF
+
+
 
 
 C
 C       Now to calc x, x_^, and x_p
 C
 
-20      DO J=1,3
+30      COUNTER=0
+20      COUNTER=COUNTER+1
+
+        DO J=1,3
                 TEMP_X(J)=0.0D0
                 TEMP_XBAR(J)=0.0D0
         END DO
 
-        DO J=1,3
-
-            TEMP_X(J)=0.0D0
-
-            DO K=1,11
-                TEMP_X(J)=TEMP_X(J)+C_K(K)*F_K(K,J)
-            END DO
-            TEMP_X(J)=TEMP_X(J)*DELTAH*DELTAH
-            TEMP_X(J)=TEMP_X(J)+VSTATE(J)+(VSTATE(J+3)*DELTAH)
-            TEMP_X(J)=TEMP_X(J)+0.0D0*(DELTAH**9.0D0)
-        END DO
+!        DO J=1,3
+!
+!            TEMP_X(J)=0.0D0
+!
+!            DO K=1,11
+!                TEMP_X(J)=TEMP_X(J)+C_K(K)*F_K(K,J)
+!            END DO
+!            TEMP_X(J)=TEMP_X(J)*DELTAH*DELTAH
+!            TEMP_X(J)=TEMP_X(J)+VSTATE(J)+(VSTATE(J+3)*DELTAH)
+!            !TEMP_X(J)=TEMP_X(J)+0.0D0*(DELTAH**9.0D0)
+!        END DO
 
         DO J=1,3
 
@@ -351,7 +393,7 @@ C
             END DO
             TEMP_XBAR(J)=TEMP_XBAR(J)*DELTAH*DELTAH
             TEMP_XBAR(J)=TEMP_XBAR(J)+VSTATE(J)+(VSTATE(J+3)*DELTAH)
-            TEMP_XBAR(J)=TEMP_XBAR(J)+0.0D0*(DELTAH**10.0D0)
+            !TEMP_XBAR(J)=TEMP_XBAR(J)+0.0D0*(DELTAH**10.0D0)
         END DO
 
 C
@@ -369,20 +411,26 @@ C
                 TEMP_XP(J)=TEMP_XP(J)+CP_K(K)*F_K(K,J)
             END DO
             TEMP_XP(J)=TEMP_XP(J)*DELTAH
-            TEMP_XP(J)=TEMP_XP(J)+VSTATE(J+3)+0.0D0*(DELTAH**9.0D0)
+            TEMP_XP(J)=TEMP_XP(J)+VSTATE(J+3)
         END DO
 
+!        WRITE (*,*) DELTAH, DELTAH**9.0D0
+!        DO I=1,3
+!            WRITE (*,*) I, TEMP_X(I), TEMP_XBAR(I)
+!        END DO
 
-        CALL CONVERGENCE_TEST_VECTOR(TEMP_X, TEMP_XBAR, ERR_X)
+!        PAUSE
+!        CALL CONVERGENCE_TEST_VECTOR(TEMP_X, TEMP_XBAR, ERR_X)
+!
+!        IF(ERR_X(1) .GT. ERR_TOL*1.0D-3) THEN
+!            DELTAH=DELTAH*0.90D0
+!
+!            GOTO 20
+!        END IF
+!
 
-        IF(ERR_X(2) .GT. ERR_TOL/10.0D-06) THEN
-            DELTAH=DELTAH/10.0D0
-            PAUSE
-            GOTO 20
-        END IF
-
-        DO J=1,3
-            OSTATE(J)=TEMP_X(J)
+40      DO J=1,3
+            OSTATE(J)=TEMP_XBAR(J)
             OSTATE(J+3)=TEMP_XP(J)
         END DO
 
