@@ -20,6 +20,36 @@ CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
         REAL*8 VTIME
         REAL*8 VSTATE(VDIM), OSTATE(VDIM), VRHO(VDIM)
 
+!
+!       SUMMARY:
+!       This routine implements a part of Encke's formulation of the
+!       n-body problem. The routine only returns delta_r at a particular
+!       time.
+!
+!       See Reference: Fundamentals of Astrodynamics, Bate, Mueller, and
+!       White, Dover Publications, pp-390-396
+!
+
+!       VARIABLES:
+!
+!       NAME             TYPE               DESCRIPTION
+!
+!       VTIME            INPUT(REAL*8)      The time at which Delta_r
+!                                           is to be calculated.
+!
+!       VRHO(6)          INPUT(REAL*8)      The state vector rho.
+!
+!       VSTATE(6)        INPUT(REAL*8)      The state vector r.
+!
+!       VDIM             INPUT(INTEGER)     The dimension of the system.
+!                                           Cannot be any value other
+!                                           than 6.
+!
+!       OSTATE(6)        OUTPUT(REAL*8)     State vector containing the
+!                                           value of delta_r.
+!
+CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
+
 
         INTEGER  I, J
 
@@ -32,6 +62,10 @@ CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
 
         REAL*8 RJ(VDIM), RJI(VDIM)
 
+!
+!       Overriding the value of VDIM
+!
+        VDIM=6
 !
 !       Assign zereos to the output vector.
 !

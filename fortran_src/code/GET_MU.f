@@ -13,8 +13,15 @@ CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
 !       SUMMARY:
 !
 !       This routine gets the value of Mu (Gravitational Parameter (G*M)
-!       for a body from the ephemeris.
+!       for a body from the ephemeris. Returns 0 if the body is not in
+!       the loaded ephemeris.
 !
+        IMPLICIT NONE
+
+        INCLUDE 'common.dat'
+        REAL*8 O_MU
+        INTEGER V_ID
+
 !       VARIABLES:
 !
 !       NAME            TYPE              DESCRIPTION
@@ -26,11 +33,7 @@ C       O_MU        OUTPUT [REAL*8]      The value of mu (GM) for the
 C                                        requested body.
 C
 CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
-        IMPLICIT NONE
 
-        INCLUDE 'common.dat'
-        REAL*8 O_MU
-        INTEGER V_ID
 
 C
 C       Variables for reading GM(mu) from the ephemerides.

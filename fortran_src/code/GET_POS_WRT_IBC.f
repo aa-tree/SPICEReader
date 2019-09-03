@@ -13,10 +13,6 @@ CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
       SUBROUTINE GET_POS_WRT_IBC(ET, I_ID, O_POS)
 
 
-
-CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
-
-
       IMPLICIT NONE
 
       INCLUDE 'common.dat'
@@ -25,6 +21,24 @@ CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
       INTEGER I_ID
       REAL*8 O_POS(6)
 
+!
+!       SUMMARY:
+!       This routine gets the position vector of a body w.r.t. to
+!       the SSB(Solar system Barycenter [ID=0]), at a particular time.
+!
+!       VARIABLES:
+!
+!       NAME         TYPE                  DESCRIPTION
+!
+!       ET           INPUT(REAL*8)         The time at which the
+!                                          state vector is needed.
+!
+!       I_ID         INPUT(INTEGER)        The ID of the target
+!                                          body.
+
+!       O_POS(6)     OUTPUT(REAL*8)        The position vector.
+!
+CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
 
       REAL*8 RJ0(6), LTIME
       INTEGER I

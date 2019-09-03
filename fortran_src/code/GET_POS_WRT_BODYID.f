@@ -23,7 +23,25 @@ CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
       REAL*8 ET
       INTEGER I_ID, I_BODY
       REAL*8 O_POS(6)
-
+!
+!       SUMMARY:
+!       This routine gets the position vector of a body w.r.t. to
+!       another body, at a particular time.
+!
+!       VARIABLES:
+!
+!       NAME         TYPE                  DESCRIPTION
+!
+!       ET           INPUT(REAL*8)         The time at which the
+!                                          state vector is needed.
+!
+!       I_ID         INPUT(INTEGER)        The ID of the target
+!                                          body.
+!
+!       I_BODY       INPUT(INTEGER)        The ID of the observer.
+!
+!       O_POS(6)     OUTPUT(REAL*8)        The position vector.
+!
 CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
 
       REAL*8 RJ0(6), LTIME
