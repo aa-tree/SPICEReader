@@ -19,6 +19,9 @@ CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
 
 !       SUMMARY:
 !
+!       This routine gets the array index of a particular body from the
+!       variable LIST_I (defined in common.dat).
+!
 !       VARIABLES:
 !       NAME            TYPE              DESCRIPTION
 !

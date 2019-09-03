@@ -317,7 +317,6 @@ C
         IF(COUNTER .GT. COUNTER_MAX) THEN
             WRITE(*,*) 'MAX ITERATIONS REACHED. f_x. ET=', V_T
             WRITE (*,*) ERR_PARAM, TEX_MOD
-            PAUSE
             GOTO 30
         END IF
 C
@@ -353,33 +352,33 @@ C
                 TEMP_XBAR(J)=0.0D0
         END DO
 
-!        DO J=1,3
-!
-!            TEMP_X(J)=0.0D0
-!
-!            DO K=1,11
-!                TEMP_X(J)=TEMP_X(J)+C_K(K)*F_K(K,J)
-!            END DO
-!            TEMP_X(J)=TEMP_X(J)*DELTAH*DELTAH
-!            TEMP_X(J)=TEMP_X(J)+VSTATE(J)+(VSTATE(J+3)*DELTAH)
-!            !TEMP_X(J)=TEMP_X(J)+0.0D0*(DELTAH**9.0D0)
-!        END DO
-
         DO J=1,3
 
-            TEMP_XBAR(J)=0.0D0
+            TEMP_X(J)=0.0D0
 
-            DO K=1,12
-            IF (K.LT. 10) THEN
-                TEMP_XBAR(J)=TEMP_XBAR(J)+C_K(K)*F_K(K,J)
-            ELSE IF (K .EQ. 12) THEN
-                TEMP_XBAR(J)=TEMP_XBAR(J)+C_K(K-1)*F_K(K,J)
-            END IF
+            DO K=1,11
+                TEMP_X(J)=TEMP_X(J)+C_K(K)*F_K(K,J)
             END DO
-            TEMP_XBAR(J)=TEMP_XBAR(J)*DELTAH*DELTAH
-            TEMP_XBAR(J)=TEMP_XBAR(J)+VSTATE(J)+(VSTATE(J+3)*DELTAH)
-            !TEMP_XBAR(J)=TEMP_XBAR(J)+0.0D0*(DELTAH**10.0D0)
+            TEMP_X(J)=TEMP_X(J)*DELTAH*DELTAH
+            TEMP_X(J)=TEMP_X(J)+VSTATE(J)+(VSTATE(J+3)*DELTAH)
+            !TEMP_X(J)=TEMP_X(J)+0.0D0*(DELTAH**9.0D0)
         END DO
+
+!        DO J=1,3
+!
+!            TEMP_XBAR(J)=0.0D0
+!
+!            DO K=1,12
+!            IF (K.LT. 10) THEN
+!                TEMP_XBAR(J)=TEMP_XBAR(J)+C_K(K)*F_K(K,J)
+!            ELSE IF (K .EQ. 12) THEN
+!                TEMP_XBAR(J)=TEMP_XBAR(J)+C_K(K-1)*F_K(K,J)
+!            END IF
+!            END DO
+!            TEMP_XBAR(J)=TEMP_XBAR(J)*DELTAH*DELTAH
+!            TEMP_XBAR(J)=TEMP_XBAR(J)+VSTATE(J)+(VSTATE(J+3)*DELTAH)
+!            !TEMP_XBAR(J)=TEMP_XBAR(J)+0.0D0*(DELTAH**10.0D0)
+!        END DO
 
 C
 C       Calc x_p.
@@ -420,9 +419,10 @@ C
 
 
 40      DO J=1,3
-            OSTATE(J)=TEMP_XBAR(J)
+            OSTATE(J)=TEMP_X(J)
             OSTATE(J+3)=TEMP_XP(J)
         END DO
+
 
         VDT=DELTAH
 
