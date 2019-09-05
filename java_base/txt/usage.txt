@@ -12,3 +12,7 @@ spicereader state -body [id] -obs [id] -time --format [format] [value] output -f
 spicereader state -input [filepath] -time --format [format] [value] output -file [pathfile]
 
 
+[Time - convert]
+
+0		1		2/3
+time -convert [value]
