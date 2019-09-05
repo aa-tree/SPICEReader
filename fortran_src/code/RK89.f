@@ -39,7 +39,7 @@ C
 
         CALL GET_VEC_MOD(VSTATE, TEMP_MOD_XO)
 
-        ERR_X_TOL=1.0D-16*TEMP_MOD_XO
+        ERR_X_TOL=1.0D-16
         ERR_TOL=(0.50D0)**9.0D0
 
         COUNTER_MAX=500
@@ -328,14 +328,19 @@ C
 
         TEX_MOD=0.0D0
         CALL GET_VEC_MOD(TEX_VAL, TEX_MOD)
-        ERR_PARAM=ABS(TEX_MOD/ERR_X_TOL)
+!        ERR_PARAM=ABS(TEX_MOD*ERR_X_TOL)
+!
+!        IF( ERR_PARAM .LT. ERR_TOL) THEN
+!            DELTAH=DELTAH*2.0D0
+!            GOTO 10
+!        END IF
+!
+!        IF( ERR_PARAM .GT. 1.0D0) THEN
+!            DELTAH=DELTAH*0.50D0
+!            GOTO 10
+!        END IF
 
-        IF( ERR_PARAM .LT. ERR_TOL) THEN
-            DELTAH=DELTAH*2.0D0
-            GOTO 10
-        END IF
-
-        IF( ERR_PARAM .GT. 1.0D0) THEN
+        IF(TEX_MOD .GT. ERR_X_TOL) THEN
             DELTAH=DELTAH*0.50D0
             GOTO 10
         END IF

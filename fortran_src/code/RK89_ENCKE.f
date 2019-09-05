@@ -42,7 +42,7 @@ C
 
         CALL GET_VEC_MOD(VSTATE, TEMP_MOD_XO)
 
-        ERR_X_TOL=1.0D-16*TEMP_MOD_XO
+        ERR_X_TOL=1.0D-16
         ERR_TOL=(0.50D0)**9.0D0
 
         COUNTER_MAX=20
@@ -340,22 +340,26 @@ C
 
         TEX_MOD=0.0D0
         CALL GET_VEC_MOD(TEX_VAL, TEX_MOD)
-        ERR_PARAM=ABS(TEX_MOD/ERR_X_TOL)
+!        ERR_PARAM=ABS(TEX_MOD/ERR_X_TOL)
+!
+!        IF( ERR_PARAM .LT. ERR_TOL) THEN
+!            DELTAH=DELTAH*2.0D0
+!            !write(*,*) TEX_VAL(J)
+!            GOTO 10
+!        END IF
+!
+!        IF( ERR_PARAM .GT. 1.0D0) THEN
+!            DELTAH=DELTAH*0.50D0
+!            GOTO 10
+!        END IF
+!
+!
+!
 
-        IF( ERR_PARAM .LT. ERR_TOL) THEN
-            DELTAH=DELTAH*2.0D0
-            !write(*,*) TEX_VAL(J)
-            GOTO 10
-        END IF
-
-        IF( ERR_PARAM .GT. 1.0D0) THEN
+        IF(TEX_MOD .GT. ERR_X_TOL) THEN
             DELTAH=DELTAH*0.50D0
             GOTO 10
         END IF
-
-
-
-
 C
 C       Now to calc x, x_^, and x_p
 C
@@ -368,33 +372,33 @@ C
                 TEMP_XBAR(J)=0.0D0
         END DO
 
-!        DO J=1,3
-!
-!            TEMP_X(J)=0.0D0
-!
-!            DO K=1,11
-!                TEMP_X(J)=TEMP_X(J)+C_K(K)*F_K(K,J)
-!            END DO
-!            TEMP_X(J)=TEMP_X(J)*DELTAH*DELTAH
-!            TEMP_X(J)=TEMP_X(J)+VSTATE(J)+(VSTATE(J+3)*DELTAH)
-!            !TEMP_X(J)=TEMP_X(J)+0.0D0*(DELTAH**9.0D0)
-!        END DO
-
         DO J=1,3
 
-            TEMP_XBAR(J)=0.0D0
+            TEMP_X(J)=0.0D0
 
-            DO K=1,12
-            IF (K.LT. 10) THEN
-                TEMP_XBAR(J)=TEMP_XBAR(J)+C_K(K)*F_K(K,J)
-            ELSE IF (K .EQ. 12) THEN
-                TEMP_XBAR(J)=TEMP_XBAR(J)+C_K(K-1)*F_K(K,J)
-            END IF
+            DO K=1,11
+                TEMP_X(J)=TEMP_X(J)+C_K(K)*F_K(K,J)
             END DO
-            TEMP_XBAR(J)=TEMP_XBAR(J)*DELTAH*DELTAH
-            TEMP_XBAR(J)=TEMP_XBAR(J)+VSTATE(J)+(VSTATE(J+3)*DELTAH)
-            !TEMP_XBAR(J)=TEMP_XBAR(J)+0.0D0*(DELTAH**10.0D0)
+            TEMP_X(J)=TEMP_X(J)*DELTAH*DELTAH
+            TEMP_X(J)=TEMP_X(J)+VSTATE(J)+(VSTATE(J+3)*DELTAH)
+            !TEMP_X(J)=TEMP_X(J)+0.0D0*(DELTAH**9.0D0)
         END DO
+
+!        DO J=1,3
+!
+!            TEMP_XBAR(J)=0.0D0
+!
+!            DO K=1,12
+!            IF (K.LT. 10) THEN
+!                TEMP_XBAR(J)=TEMP_XBAR(J)+C_K(K)*F_K(K,J)
+!            ELSE IF (K .EQ. 12) THEN
+!                TEMP_XBAR(J)=TEMP_XBAR(J)+C_K(K-1)*F_K(K,J)
+!            END IF
+!            END DO
+!            TEMP_XBAR(J)=TEMP_XBAR(J)*DELTAH*DELTAH
+!            TEMP_XBAR(J)=TEMP_XBAR(J)+VSTATE(J)+(VSTATE(J+3)*DELTAH)
+!            !TEMP_XBAR(J)=TEMP_XBAR(J)+0.0D0*(DELTAH**10.0D0)
+!        END DO
 
 C
 C       Calc x_p.
@@ -430,7 +434,7 @@ C
 !
 
 40      DO J=1,3
-            OSTATE(J)=TEMP_XBAR(J)
+            OSTATE(J)=TEMP_X(J)
             OSTATE(J+3)=TEMP_XP(J)
         END DO
 

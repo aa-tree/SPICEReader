@@ -61,8 +61,8 @@ C
         END DO
 
         ELSE
-            WRITE (*,*) 'Error in GETBINOMIAL_SUM.'
-            WRITE (*,*) 'X is not less than 1.'
+            !WRITE (*,*) 'Error in GETBINOMIAL_SUM.'
+            !WRITE (*,*) 'X is not less than 1.'
 !           STOP
         END IF
 

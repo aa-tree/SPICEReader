@@ -56,11 +56,13 @@ then
 fi
 
 ## Compile Java programs.
-cd ../java_base/src
-javac *.java
+cd ..
+mainpath=$PWD
+cd java_base/src
+javac -cp $mainpath *.java
 
-#mv *.class tmp/
-#cd tmp
+echo "All steps completed."
+
 #jar cmf ../manifest.mf SPICEReader.jar *.class
     
 
