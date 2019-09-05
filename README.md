@@ -21,21 +21,26 @@ for accessing the functions of SPICELib’s toolkits and some other
 routines like N-body problem in astrodynamics and RK89 integrator.
 The FORTRAN backend can be used independently as well.  </span><span style="font-style: normal">Docs
 for that would be coming up soon.</span></p>
-<p><br/>
+<p style="font-style: normal"><br/>
 <br/>
 
 </p>
-<h1 class="western"><span style="font-style: normal">Depedencies</span></h1>
-<p><span style="font-style: normal">This project requires:</span></p>
+<h1 class="western" style="font-style: normal">Depedencies</h1>
+<p style="font-style: normal">This project requires:</p>
 <ol>
 	<li/>
 <p><span style="font-style: normal">gfortran </span><span style="font-style: normal">[64bit]</span><span style="font-style: normal">
 	(Tested with 5.4.0 20160609)</span></p>
 	<li/>
-<p><span style="font-style: normal">openjdk (Tested with
-	openjdk version &quot;1.8.0_222&quot;)</span></p>
+<p style="font-style: normal">openjdk (Tested with openjdk
+	version &quot;1.8.0_222&quot;)</p>
 </ol>
 <h1 class="western"><a name="user-content-installation"></a>Installation</h1>
+<p style="margin-bottom: 0cm; line-height: 100%">Note: These steps
+will be automated in upcoming version of the install script.</p>
+<p style="margin-bottom: 0cm; line-height: 100%"><br/>
+
+</p>
 <ol>
 	<li/>
 <p>Download this repository. Let's say you store it in
@@ -55,10 +60,6 @@ for that would be coming up soon.</span></p>
 		to /path-to-repo/SPICEReader/fortran_src/toolkit/lib/</i></p>
 	</ol>
 </ol>
-<p style="margin-bottom: 0cm; line-height: 100%">[You can skip this
-step, because the SPICE Toolkit is freely available so it will be
-available in the repository. If perhaps the license doesn’t allow
-free distribution, this file might be removed from the repository.]</p>
 <p style="margin-bottom: 0cm; line-height: 100%"><br/>
 
 </p>
@@ -111,10 +112,15 @@ downloaded files to  <i>/path-to-repo/SPICEReader</i><i>/fortran_src/eph/</i></p
 
 </p>
 <p>The primary program to execute is
-<span style="font-style: normal">/</span><i>path-to-repo/SPICEReader</i><i>/</i><i>java_base/src/SPICEReader.class</i></p>
-<p style="font-style: normal">To get help, navigate to the folder
-/<i>path-to-repo/SPICEReader</i><i>/</i><i>java_base/src/</i> and
-execute:</p>
-<p align="center"><i>java src.SPICEReader -help</i></p>
-<p align="center" style="font-style: normal"><b>[Help feature is not
-available yet, will be up pretty soon.]</b></p>
+<span style="font-style: normal">/</span><i>path-to-repo/SPICEReader</i><i>/</i><i>SPICEReader.</i><i>sh</i></p>
+<p style="font-style: normal"><br/>
+<br/>
+
+</p>
+<p style="font-style: normal">To get help, execute</p>
+<p align="center" style="font-style: normal">sh <span style="font-weight: normal">SPICEReader.sh
+--help</span></p>
+<p align="center" style="font-style: normal"><br/>
+<br/>
+
+</p>
