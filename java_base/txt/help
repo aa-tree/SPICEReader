@@ -43,11 +43,26 @@ state		Get state of bodies in the ephemeris.
 				-file			Path to output file.
 				
 			
-Argument Examples
-1) State of Jupiter w.r.t Earth at a particular date:
-		state -body Jupiter -obs Earth -time --format JULIAN 2019-01-01 12:31:22 output -file temp/test.out
+						Argument Examples
+						1) State of Jupiter w.r.t Earth at a particular date:
+								state -body Jupiter -obs Earth -time --format JULIAN 2019-01-01 12:31:22 output -file temp/test.out
+						
+						2) State of bodies in a batch:
+								state -input temp/input.dat -time --format JULIAN 2019-01-01 12:31:22 output -file temp/test.out
+						
 
-2) State of bodies in a batch:
-		state -input temp/input.dat -time --format JULIAN 2019-01-01 12:31:22 output -file temp/test.out
+time 		Convert between time formats [Ephemeris time and Julian Date]
 
-
+		-convert 				Input that you want to convert. Value could be Julian date or seconds
+								past J2000. 
+									a) In case you provide ephemeris time, the unit is in seconds, and 
+									   the output will be in format:
+								   					"YYYY-MM-DD HH:MM:SS"
+				   					b) In case you provide Julian date, the preffered format would be:"YYYY-MM-DD HH:MM:SS"
+				   					   and the output will be in ephemeris time [seconds]. 
+									
+						Argument Examples
+						1) time -convert 120202
+						
+						2) time - convert 2019-03-01 22:33:33,4443
+								

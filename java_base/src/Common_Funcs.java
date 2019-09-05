@@ -353,4 +353,22 @@ public class Common_Funcs {
 		
 		return input_type;
 	}
+	
+	public static void Dump_HelpInfo(String err_message)
+	{
+		try {
+			String help_filepath, help_output;
+			help_filepath= SPICEReader.Global_Java_Path+"/txt/help";
+			help_output=File_Funcs.File_ReadFile_ReturnString(help_filepath);
+			if(err_message!=null)
+			{
+				System.out.println(err_message);	
+			}
+			
+			System.out.println(help_output);
+			System.exit(0);
+		} catch (Exception e) {
+			Error_Funcs.ThrowError_Warning("Process_Args.Process_Rest", "Error printing help content. "+e.getMessage());
+		}
+	}
 }

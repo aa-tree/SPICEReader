@@ -81,6 +81,13 @@ public class Process_Args
 					Process_State_Inputs(i, args);
 					emptyarg=false;
 				}
+				
+				if( args[i].toLowerCase().equals("time"))
+				{
+					Process_Time_Inputs(i, args);
+					emptyarg=false;
+				}
+						
 			}
 		}
 		else
@@ -378,6 +385,37 @@ public class Process_Args
 		
 	}
 	
+	protected static void Process_Time_Inputs(Integer time_pos, String [] args)
+	{
+		try
+		{
+		
+			if(args[time_pos+1].toLowerCase().equals("-convert") && args.length>=time_pos+3)
+			{
+				
+				String time_input;
+				time_input="";
+				for(int i=time_pos+2;i<args.length;i++)
+				{
+					time_input+= " "+args[i].toString();
+				}
+				Time_Funcs.Convert_Time(time_input);
+				
+				
+					
+			}
+			else
+			{
+				Error_Funcs.ThrowError_Input("Wrong format for time function.");
+				
+			}
+		}
+		catch (Exception e)
+		{
+			Error_Funcs.ThrowError_Input("Wrong format for time function.");
 
+		}
+		
+	}
 
 }

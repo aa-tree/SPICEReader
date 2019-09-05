@@ -5,8 +5,11 @@ public class Error_Funcs {
 	
 	public static void ThrowError_Input(String Err_Message)
 	{
-		System.out.println("Input Error: "+Err_Message);
+		Err_Message="Input Error: "+Err_Message;
+		System.out.println("Call the program with --help option to know the usage.");
 		System.exit(0);
+
+		//Common_Funcs.Dump_HelpInfo(Err_Message);
 	}
 	
 
