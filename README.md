@@ -25,7 +25,7 @@ for that would be coming up soon.</span></p>
 <br/>
 
 </p>
-<h1 class="western" style="font-style: normal">Depedencies</h1>
+<h1 class="western" style="font-style: normal">Dependencies</h1>
 <p style="font-style: normal">This project requires:</p>
 <ol>
 	<li/>
