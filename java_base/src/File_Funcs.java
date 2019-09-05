@@ -4,8 +4,9 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Random;
-
+import java.lang.Math;
 public class File_Funcs {
 
 	
@@ -16,7 +17,7 @@ public class File_Funcs {
 		String random_name;
 		//random_name = Long.toHexString(Double.doubleToLongBits(Math.random()));
 		 Random random = new Random();
-		random_name="TEST_"+Integer.toString(random.nextInt());
+		random_name="TEST_"+Integer.toString(Math.abs(random.nextInt()));
 		
 		try 
 		{
@@ -26,7 +27,7 @@ public class File_Funcs {
 			    
 			    while (dir_path.exists() || dir_path.isDirectory()&&counter_tries<30) {
 			    	counter_tries++;
-			    	random_name="TEST_"+Double.toString(Math.random());
+					random_name="TEST_"+Integer.toString(Math.abs(random.nextInt()));
 					dir_path = new File(SPICEReader.Global_Fortran_Path+"tmp/"+random_name);
 					
 			    	}
@@ -112,16 +113,17 @@ public class File_Funcs {
 		String return_status;
 		return_status="Failed.";
 		
-		File source_file=new File(source_file_path);
-/*
- * Destination Name:		
- */
-		
-		File dest_file=new File(destination_file_path);
+
 		
 		
 		String temp_fr, temp_fr_fullfile;
 		try {
+			File source_file=new File(source_file_path);
+			/*
+			 * Destination Name:		
+			 */
+					
+			File dest_file=new File(destination_file_path);
 		
 			FileReader fr = new FileReader(source_file);
 			BufferedReader br = new BufferedReader(fr);
@@ -136,7 +138,7 @@ public class File_Funcs {
 					temp_fr=temp_fr.replace(text_tosearch[i], text_final[i]);
 				}
 				
-				temp_fr_fullfile+=temp_fr+"\n";
+				temp_fr_fullfile+=temp_fr+System.getProperty("line.separator");
 				
 				
 
@@ -150,7 +152,9 @@ public class File_Funcs {
 		}
 		catch (Exception e)
 		{
-			return_status=e.getMessage();
+			Error_Funcs.ThrowError_Warning("File_Funcs.File_ReplacePattern", e.getMessage());
+			return_status="Failed.";
+
 		}
 		
 		
@@ -211,4 +215,20 @@ public class File_Funcs {
 		
 	}
 	
+	public static String File_ReadFile_ReturnString(String file_path) throws Exception, IOException
+	{
+		String output="";
+
+		String temp_fr;
+		File source_file=new File(file_path);
+		FileReader fr = new FileReader(source_file);
+		BufferedReader br = new BufferedReader(fr);
+		while ((temp_fr= br.readLine())!=null)
+		{
+			output+=temp_fr+System.getProperty("line.separator");
+				
+		}
+		
+		return output;
+	}
 }

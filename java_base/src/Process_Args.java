@@ -34,6 +34,7 @@ public class Process_Args
 			}
 
 		}
+		
 		return CLI;
 		
 	}
@@ -41,22 +42,76 @@ public class Process_Args
 	public static void Args_Process_Rest(String [] args)
 	{
 		Integer i;
+		boolean emptyarg=true;
 		
 		if(args.length>0)
 		{
 			for (i=0; i<args.length; i++)
 			{
-				if(args[i].toLowerCase().equals("silent"))
+				if(args[i].toLowerCase().equals("--silent"))
 				{
 					/** Set value of global variable 'Global_Silent'.**/ 
 					SPICEReader.Global_Silent=true;
 				}
+				
+				if(args[i].toLowerCase().equals("--version"))
+				{
+					/** Set value of global variable 'Global_Silent'.**/ 
+					System.out.println("SPICEReader v. 1.0");
+					System.exit(0);
+				}
+				
+				if(args[i].toLowerCase().equals("--help"))
+				{
+					try {
+						String help_filepath, help_output;
+						help_filepath= SPICEReader.Global_Java_Path+"/txt/help";
+						help_output=File_Funcs.File_ReadFile_ReturnString(help_filepath);
+						System.out.println(help_output);
+						System.exit(0);
+					} catch (Exception e) {
+						Error_Funcs.ThrowError_Warning("Process_Args.Process_Rest", "Error printing help content."+e.getMessage());
+					}
+				}
+				
+				
 				if (args[i].toLowerCase().equals("state"))
 				{
 					/** Process arguments for getting state vector.**/
 					Process_State_Inputs(i, args);
+					emptyarg=false;
 				}
 			}
+		}
+		else
+		{
+			/** Print help if no arguments given. **/
+			
+				try {
+					String help_filepath, help_output;
+					help_filepath= SPICEReader.Global_Java_Path+"/txt/help";
+					help_output=File_Funcs.File_ReadFile_ReturnString(help_filepath);
+					System.out.println(help_output);
+					System.exit(0);
+				} catch (Exception e) {
+					Error_Funcs.ThrowError_Warning("Process_Args.Process_Rest", "Error printing help content. "+e.getMessage());
+				}
+			
+		}
+		
+		if(emptyarg)
+		{
+
+			try {
+				String help_filepath, help_output;
+				help_filepath= SPICEReader.Global_Java_Path+"/txt/help";
+				help_output=File_Funcs.File_ReadFile_ReturnString(help_filepath);
+				System.out.println(help_output);
+				System.exit(0);
+			} catch (Exception e) {
+				Error_Funcs.ThrowError_Warning("Process_Args.Process_Rest", "Error printing help content. "+e.getMessage());
+			}
+		
 		}
 	}
 	
@@ -192,11 +247,13 @@ public class Process_Args
 					if(result_body[0]==1)
 					{
 						body_present=true;
+						body=result_body[1].toString();
 					}
 					
 					if(result_obs[0]==1)
 					{
 						obs_present=true;
+						obs=result_obs[1].toString();
 					}
 
 				}
