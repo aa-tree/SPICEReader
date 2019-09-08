@@ -16,3 +16,5 @@ spicereader state -input [filepath] -time --format [format] [value] output -file
 
 0		1		2/3
 time -convert [value]
+
+search [name]

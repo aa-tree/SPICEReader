@@ -42,12 +42,17 @@ public class Process_Args
 	public static void Args_Process_Rest(String [] args)
 	{
 		Integer i;
-		boolean emptyarg=true;
+ 		boolean emptyarg=true;
 		
 		if(args.length>0)
 		{
-			for (i=0; i<args.length; i++)
+			
+			for(i=0;i<args.length;i++)
 			{
+				/**
+				 * Process the general arguments first
+				 * **/
+				 
 				if(args[i].toLowerCase().equals("--silent"))
 				{
 					/** Set value of global variable 'Global_Silent'.**/ 
@@ -73,7 +78,16 @@ public class Process_Args
 						Error_Funcs.ThrowError_Warning("Process_Args.Process_Rest", "Error printing help content."+e.getMessage());
 					}
 				}
+			}
+			for (i=0; i<args.length; i++)
+			{
 				
+				if(args[i].toLowerCase().equals("search"))
+				{
+					Process_Search_Inputs(i,args);
+					emptyarg=false;
+
+				}
 				
 				if (args[i].toLowerCase().equals("state"))
 				{
@@ -418,4 +432,41 @@ public class Process_Args
 		
 	}
 
+	protected static void Process_Search_Inputs(Integer search_pos, String [] args)
+	{
+		if(args.length>=search_pos)
+		{
+			String body_tofind=args[search_pos+1].trim();
+			Integer [] body_search;
+			body_search= Toolkit_Funcs.Body_Present(body_tofind);
+			
+			if(body_search!=null && body_search.length==2)
+			{
+				if(body_search[0]==1)
+				{
+					System.out.println("Body \""+ body_tofind+"\" found. Toolkit ID="+body_search[1].toString()+".");
+					System.exit(0);
+				}
+				else
+				{
+					System.out.println("Body \""+ body_tofind+"\" not found.");
+					System.exit(0);
+				}
+				
+			}
+			else
+			{
+				Error_Funcs.ThrowError_Fatal("Process_Args.Process_Search_Inputs", "Something went wrong. No more details.", null);
+			}
+				
+				
+				
+				
+				
+				
+				
+			
+		}
+		
+	}
 }
