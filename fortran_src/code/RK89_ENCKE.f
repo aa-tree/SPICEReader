@@ -42,7 +42,7 @@ C
 
         CALL GET_VEC_MOD(VSTATE, TEMP_MOD_XO)
 
-        ERR_X_TOL=1.0D-16
+        ERR_X_TOL=1.0D-4
         ERR_TOL=(0.50D0)**9.0D0
 
         COUNTER_MAX=20

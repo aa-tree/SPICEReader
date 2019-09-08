@@ -42,7 +42,7 @@ C
         ERR_X_TOL=1.0D-16
         ERR_TOL=(0.50D0)**9.0D0
 
-        COUNTER_MAX=500
+        COUNTER_MAX=50
         VDIM=6 !Override VDIM.
 C
 C       Alpha_K. The vector has a bias of 1.
