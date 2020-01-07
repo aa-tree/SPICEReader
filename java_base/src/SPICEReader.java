@@ -11,6 +11,8 @@ CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
 */
 
 package src;
+import src.gui.Get_StateVectors;
+import src.gui.Loadingscreen;
 
 public class SPICEReader
 {
@@ -18,35 +20,35 @@ public class SPICEReader
 	public static String Global_Fortran_Path;
 	public static boolean Global_Silent;
 
-	
+
   public static void main (String args[])
   {
 	  Set_Global_Vars();
-	  
+
 
 	  if(Process_Args.Args_INIT(args))
 	  {
 		  String paths[];
 
 		  //Position_Funcs.Get_PositionVector_WRT_Observer("A", "b", "C");
-		  
-		  
+
+
 		  Process_Args.Args_Process_Rest(args);
 	  }
 	  else
 	  {
-		  Get_StateVectors get_sv = new Get_StateVectors();
+		  Loadingscreen startGui = new Loadingscreen();
 
 	  }
 
   }
-  
+
   public static void Set_Global_Vars()
   {
 	  String [] paths;
-	  
+
 	  paths=File_Funcs.File_ReturnPaths();
-	  
+
 	  if(paths!=null)
 	  {
 		  if(paths[0]!="" && paths[1]!="")
@@ -60,7 +62,7 @@ public class SPICEReader
 		  }
 	  }
 	  else
-		  
+
 	  {
 		  Error_Funcs.ThrowError_Fatal("SPICEReader.Set_Global_Vars", "Can't get default paths.", null);
 	  }

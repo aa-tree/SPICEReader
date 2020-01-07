@@ -1,0 +1,73 @@
+SPICEReader v. 1.0
+
+Usage:
+
+Options
+
+--version	Display Version Information.
+
+--help 		Display this help content.
+
+--silent	Turn on silent mode. No non-critical messages will be displayed. 
+
+state		Get state of bodies in the ephemeris.
+			State is return in form of a vector, containing 3 components of
+			position [KM] , and 3 components of velocity [KM/S]. 
+
+			Case 1: For a single body.
+			Required Arguments:
+			-body 				Name of the body for which state vector is required. 
+			-obs 				Name of the observing body. 
+			-time 				Time at which state vector is required.
+				--format  		Format of time. Could be:
+								(a) EPH - Ephemeris time. Seconds after J2000.
+								(b) JULIAN - Julian date in the format YYYY-MM-DD HH:MM:SS
+			output				Only if the output is required to be written to a file. 
+				-file			Path to output file.
+				
+			
+			Case 2: Batch processing.
+			-input 				Path to the input file. 
+								Input file must be a CSV of the format:
+								[BODY],[OBS]
+								E.g.: 
+								Jupiter, Earth
+								Moon, Earth
+								 
+							 
+			-time 				Time at which state vector is required.
+				--format  		Format of time. Could be:
+								(a) EPH - Ephemeris time. Seconds after J2000.
+								(b) JULIAN - Julian date in the format YYYY-MM-DD HH:MM:SS
+			output				Only if the output is required to be written to a file. 
+				-file			Path to output file.
+				
+			
+						Argument Examples
+						1) State of Jupiter w.r.t Earth at a particular date:
+								state -body Jupiter -obs Earth -time --format JULIAN 2019-01-01 12:31:22 output -file temp/test.out
+						
+						2) State of bodies in a batch:
+								state -input temp/input.dat -time --format JULIAN 2019-01-01 12:31:22 output -file temp/test.out
+						
+
+time 		Convert between time formats [Ephemeris time and Julian Date]
+
+		-convert 				Input that you want to convert. Value could be Julian date or seconds
+								past J2000. 
+									a) In case you provide ephemeris time, the unit is in seconds, and 
+									   the output will be in format:
+								   					"YYYY-MM-DD HH:MM:SS"
+				   					b) In case you provide Julian date, the preferred format would be:"YYYY-MM-DD HH:MM:SS"
+				   					   and the output will be in ephemeris time [seconds]. 
+									
+						Argument Examples
+						1) time -convert 120202
+						
+						2) time - convert 2019-03-01 22:33:33,4443
+
+search		Search if a body is present in the epheremis.
+
+						Argument Example
+						1) search Jupiter
+						2) search Io							

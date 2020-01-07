@@ -417,6 +417,8 @@ public class Position_Funcs {
 				}
 			}
 			
+			br.close();
+			
 			
 			
 			if(temp_body.size()>0 && temp_obs.size()>0)

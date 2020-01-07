@@ -16,7 +16,7 @@ CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
         INCLUDE 'common.dat'
 
         INTEGER VDIM
-        REAL*8 V_R_M4_4(VDIM, 9), V_R_M4_4_P(VDIM, 9)
+        REAL*8 V_R_M4_4(6, 9), V_R_M4_4_P(6, 9)
         REAL*8 VDELTAH
         REAL*8 O_S_N(3,9)
 C
@@ -63,7 +63,7 @@ C
 C       For n<0
 C
 
-        DO I=4,1
+        DO I=4,1,-1
             DO J=1,3
                 O_S_N(J,I)=(V_R_M4_4_P(J+3,I+1)+V_R_M4_4_P(J+3,I))
      &/2.0D0

@@ -67,7 +67,11 @@ C
 C
 C       Calc relative error.
 C
-        O_RESULT(2)= ABS(MOD_DIFF/MOD_EXACT)
+        IF(MOD_EXACT .NE . 0) THEN
+            O_RESULT(2)= ABS(MOD_DIFF/MOD_EXACT)
+        ELSE
+            O_RESULT(2)=-1.0D0
+        END IF
 
 
         RETURN
