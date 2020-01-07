@@ -1,8 +1,27 @@
+/*
+CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
+C
+C       Written by: Anshuk Attri
+C
+C       Contact: contact@anshukattri.in
+C       Website: www.anshukattri.in/research
+C       GITHUB: github.com/aa-tree/SPICEReader/
+C
+CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
+*/
+
+
 package src.gui;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Font;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
+import javax.swing.ImageIcon;
+import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -10,7 +29,7 @@ import javax.swing.JProgressBar;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 
-import src.Init_Frame;
+import src.gui.Init_Frame;
 
 public class Loadingscreen{
 
@@ -18,12 +37,13 @@ public class Loadingscreen{
 	{
 
 		Init_Frame frame_1 = new Init_Frame("SPICEReaderUI - Loading", 3);
-		frame_1.setVisible(true);
 		Populate_Frame(frame_1);
+		frame_1.setLocationRelativeTo(null);  //
+
+		frame_1.setVisible(true);
 
 
-
-
+		Home_screen home_screen= new Home_screen(frame_1);
 
 
 	}
@@ -50,16 +70,23 @@ public class Loadingscreen{
 		
 		
 		
+		BufferedImage myPicture;
+		JLabel picLabel=null;
+ 		try {
+			
+			myPicture = ImageIO.read(new File("src/gui/img/logo_start.jpg"));
+			picLabel = new JLabel(new ImageIcon(myPicture));
+		} catch (IOException e) {
+		}
 		
-		//panel_one.add(sep_vertical, BorderLayout.WEST);
-		//panel_one.add(sep_horizontal, BorderLayout.NORTH);
 		//panel_one.add(sep_vertical, BorderLayout.EAST);
-		panel_one.add(lbl_heading, BorderLayout.CENTER);
+		panel_one.add(lbl_heading, BorderLayout.NORTH);
+		panel_one.add(picLabel, BorderLayout.CENTER);
 		panel_one.add(progressBar, BorderLayout.SOUTH);
 		//frame_1.setUndecorated(true);
 		frame_1.add(panel_one);
 		
-		frame_1.pack();
+		//frame_1.pack();
 
 	}
 

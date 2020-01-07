@@ -229,6 +229,8 @@ public class File_Funcs {
 				
 		}
 		
+		br.close();
+		
 		return output;
 	}
 	
